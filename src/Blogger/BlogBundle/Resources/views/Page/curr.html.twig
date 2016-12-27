@@ -1,0 +1,62 @@
+{# src/Blogger/BlogBundle/Resources/views/Page/curr.html.twig #}
+{% extends 'BloggerBlogBundle::layout.html.twig' %}
+
+{% block title %}Currency{% endblock%}
+{% block body %}
+    <header>
+        <h1>{{ curr }}</h1>
+    </header>
+    <div class="container col-md-12">
+        <p class="currency" id="eur" href="{{ path('BloggerBlogBundle_currency',{'curr':'eur'}) }}">EUR</p>
+        <p class="currency" id="usd" href="{{ path('BloggerBlogBundle_currency',{'curr':'usd'}) }}">USD</p>
+        <p class="currency" id="rub" href="{{ path('BloggerBlogBundle_currency',{'curr':'rub'}) }}">RUB</p>
+
+        <table id="lst_tbl" class="table table-bordered ">
+            <thead>
+            <tr>
+                <th>Bank</th>
+                <th>City</th>
+                <th>Покупка</th>
+                <th>Продажа</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for ky, val in resultArray.organizations %}
+            <tr id={{ ky }} >
+                <td>
+                {{ val.title }}
+                </td>
+                <td>
+                    {{ resultArray.cities[val.cityId] }}
+                </td>
+                <td class="ask">
+                    {% if val.currencies.EUR is defined %}
+                        {{  val.currencies.EUR.ask|number_format(2, '.')}}
+                    {% else %}
+                        empty
+                    {% endif %}
+                </td>
+                <td class="bid">
+                 {% if val.currencies.EUR is defined %}
+                        {{  val.currencies.EUR.bid|number_format(2, '.')}}
+                    {% else %}
+                        empty
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div id="post_content">
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+        {#var x = {{ resultArray|json_encode|raw }};#}
+        var x = {{ resultStringJson|raw }};
+        console.log(x);
+    </script>
+    <script src="{{ asset('ajax/ajax-currency.js') }}"></script>
+
+{% endblock %}
