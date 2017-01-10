@@ -19,4 +19,28 @@ $("h1").html("<h1>"+curr+"<h1>");
         });
 
     });
+
+
+    $(".city").on('click',
+        function() {
+            var city = $(this).attr('city');
+            console.log(city);
+            $.ajax({
+                url: "/ajax/"+city,
+                method: "GET",
+                beforeSend: function() {
+                    $('#loader').show();
+                    $('#weather_city_info').hide();
+                },
+                complete: function(){
+                    $('#loader').hide();
+                    $('#weather_city_info').show();
+
+                }
+            }).success(function(result) {
+                 $('#weather_city_info').html(result);
+            })
+
+        });
+
 });

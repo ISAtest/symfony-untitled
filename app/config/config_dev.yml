@@ -9,7 +9,11 @@ framework:
 
 web_profiler:
     toolbar: true
-    intercept_redirects: false
+    intercept_redirects: true
+
+swiftmailer:
+    disable_delivery: true
+#   delivery_address: seoirinas@gmail.com
 
 monolog:
     handlers:

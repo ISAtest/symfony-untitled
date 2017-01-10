@@ -1,0 +1,23 @@
+{% extends 'BloggerBlogBundle::layout.html.twig' %}
+
+{% block title %}Weather{% endblock%}
+
+{% block body %}
+    <header>
+        <h1>Weather</h1>
+    </header>
+    <article>
+        <p class="city" city="kyiv">KYIV</p>
+        <p class="city" city="moscow">MOSCOW</p>
+        <p class="city" city="minsk">MINSK</p>
+        <div id="weather_city_info">
+            <h1> {{ cityCurl }}</h1>
+        </div>
+        <div id="loader" style="display: none">
+            <p>....LOADING....</p>
+        </div>
+    </article>
+{% endblock %}
+{% block javascripts %}
+<script src="{{ asset('ajax/ajax.js') }}"></script>
+{% endblock %}
